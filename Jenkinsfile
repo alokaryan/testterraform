@@ -28,7 +28,7 @@ pipeline {
          steps {
             sh 'terraform init -input=false'
             sh "terraform plan -input=false -out tfplan"
-            sh "terraform show tfplan > tfplan.txt
+            sh "terraform show tfplan > tfplan.txt"
          }
      }
      
@@ -54,7 +54,7 @@ pipeline {
     stage('apply') {
         when {
            not {
-              equals expected: true, actual: param.destroy
+              equals expected: true, actual: params.destroy
            }
         }
         
