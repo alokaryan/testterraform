@@ -10,26 +10,25 @@ checkout([$class: ‘GitSCM’, branches: [[name: ‘*/main’]], extensions: []
 
 }
 
-stage (“terraform init”) {
+stage ('terraform init') {
 
-steps {
+     steps {
 
-sh (‘terraform init’)
+         sh (‘terraform init’)
 
-}
-
-}
-
-stage (“terraform Action”) {
-
-steps {
-
-echo “Terraform action is –> ${action}”
-
-sh (‘terraform ${action} –auto-approve’)
+     }
 
 }
 
+stage ('terraform Action') {
+
+      steps {
+
+           echo “Terraform action is –> ${action}”
+
+           sh (‘terraform ${action} –auto-approve’)
+
+       }
 }
 
 }
