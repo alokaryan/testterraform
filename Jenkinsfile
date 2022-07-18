@@ -4,9 +4,9 @@ stage(‘Checkout’) {
 
 steps {
 
-checkout([$class: ‘GitSCM’, branches: [[name: ‘*/main’]], extensions: [], userRemoteConfigs: [[url: ‘https://github.com/alokaryan/testterraform.git‘]]])
+    checkout([$class: ‘GitSCM’, branches: [[name: ‘*/main’]], extensions: [], userRemoteConfigs: [[url: ‘https://github.com/alokaryan/testterraform.git‘]]])
 
-}
+   }
 
 }
 
@@ -27,8 +27,6 @@ stage ('terraform Action') {
          sh 'terraform apply --auto-approve'
 
        }
-}
-
-}
+   }
 
 }
