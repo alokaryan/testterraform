@@ -1,12 +1,7 @@
 pipeline {
    agent any
    
-   parameters {
-
-      booleanParam(name: 'autoApprove', defaultValue: false, description: 'auto run or not')
-      booleanParam(name: 'destroy', defaultValue: false, description: 'destroy everything')
-   }
-   
+    
    environment {
       AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
       AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
@@ -25,51 +20,22 @@ pipeline {
       
       stage('plan') {
          steps {
-            sh 'terraform init -input=false'
-            sh "terraform plan -input=false -out tfplan"
-            sh "terraform show tfplan > tfplan.txt"
+            script {
+                   sh 'terraform init -input=false'
+                   sh "terraform plan -input=false -out tfplan"
+                   sh "terraform show tfplan > tfplan.txt"
+            }
          }
-     }
+      }
      
-     stage('approve') {
-         when {
-            not {
-                equals expected: true, actual: params.autoApprove
-            }
-            not {
-                equals expected: true, actual: params.destroy
-            }
-         }
-         
-         steps {
-             script {
-                def plan = readfile 'tfplan.txt'
-                input message = "Do you really want to apply?"
-                parameters: [text(name: 'Plan', description: 'check again', defaultValue: plan)]
-             }
-        }
-    }
+     
     
     stage('apply') {
-        when {
-           not {
-              equals expected: true, actual: params.destroy
-           }
-        }
-        
+            
         steps {
-            sh "terraform apply -input=false tfplan"
+           script {
+                 sh "terraform apply -input=false tfplan"
             }
-   }
-   
-   stage('destroy') {
-       when {
-          equals expected: true, actual: params.destroy
-       }
-       steps {
-          sh "terraform destroy --auto-approve"
-          }
-   }
-  
-  }
+        }
+    }
 }
