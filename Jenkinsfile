@@ -18,13 +18,11 @@ pipeline {
          }
 
       
-      stage('plan') {
+      stage('init') {
          steps {
             script {
-                   sh 'terraform init -input=false'
-                   sh "terraform plan -input=false -out tfplan"
-                   sh "terraform show tfplan > tfplan.txt"
-            }
+                   sh 'terraform init'
+                              }
          }
       }
      
@@ -34,7 +32,7 @@ pipeline {
             
         steps {
            script {
-                 sh "terraform apply -input=false tfplan"
+                 sh "terraform apply  --auto-approve"
             }
         }
     }
