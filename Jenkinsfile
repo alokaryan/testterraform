@@ -19,10 +19,7 @@ pipeline {
         stage('checkout') {
             steps {
                  script{
-                        dir("terraform")
-                        {
-                            git "https://github.com/alokaryan/testterraform.git"
-                        }
+                       git branch: '', url: 'https://github.com/alokaryan/testterraform.git'
                     }
                 }
             }
