@@ -2,7 +2,7 @@ pipeline {
    agent any
    
    parameters {
-      string(name: 'environment', defaultValue: 'terraform', description: 'workplace to use')
+#      string(name: 'environment', defaultValue: 'terraform', description: 'workplace to use')
       booleanParam(name: 'autoApprove', defaultValue: false, description: 'auto run or not')
       booleanParam(name: 'destroy', defaultValue: false, description: 'destroy everything')
    }
@@ -16,7 +16,7 @@ pipeline {
       stage('checkout') {
          steps {
              script {
-                 dir("terraform")
+#                 dir("terraform")
                  {
                      git "https://github.com/alokaryan/testterraform.git"
                  }
