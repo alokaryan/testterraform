@@ -4,7 +4,7 @@ pipeline {
    parameters {
       string(name: 'environment', defaultValue: 'terraform', description: 'workplace to use')
       booleanParam(name: 'autoApprove', defaultValue: false, description: 'auto run or not')
-      booleanParam(name: 'destroy', 'defaultValue: false, description: 'destroy everything')
+      booleanParam(name: 'destroy', defaultValue: false, description: 'destroy everything')
    }
    
    environment {
